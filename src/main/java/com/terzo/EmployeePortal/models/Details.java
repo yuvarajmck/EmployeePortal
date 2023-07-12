@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,9 +29,7 @@ public class Details {
     private String currentCity;
     private String permanentAddress;
     private String permanentAddressCity;
-    @NotEmpty(message = "This field is required")
     private String aadhaar;
-    @NotEmpty(message = "This field is required")
     private String pan;
     @OneToOne(mappedBy = "details")
     @JsonBackReference

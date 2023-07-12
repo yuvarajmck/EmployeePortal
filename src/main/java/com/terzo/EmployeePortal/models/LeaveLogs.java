@@ -23,4 +23,6 @@ public class LeaveLogs {
     private Duration duration;
     private String reason;
 
+    public void setId(Long leaveId) {
+    }
 }
