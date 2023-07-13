@@ -1,6 +1,7 @@
 package com.terzo.EmployeePortal.config;
 
 import com.terzo.EmployeePortal.service.JwtService;
+import com.terzo.EmployeePortal.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +11,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,10 +20,10 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
-    private UserDetailsService userDetailsService;
+    private UserService userDetailsService;
 
     @Autowired
-    public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(JwtService jwtService, UserService userDetailsService) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
@@ -39,11 +39,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String userEmail;
         if(authHeader==null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
+            System.out.println(response);
             return;
         }
         jwt=authHeader.substring(7);
         userEmail=jwtService.extractEmail(jwt);
-
+        System.out.println(userEmail);
         if(userEmail!=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails =this.userDetailsService.loadUserByUsername(userEmail);
             if(jwtService.isTokenValid(jwt, userDetails)){

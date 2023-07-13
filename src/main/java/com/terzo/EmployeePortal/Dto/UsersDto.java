@@ -1,8 +1,6 @@
 package com.terzo.EmployeePortal.Dto;
 
 import com.terzo.EmployeePortal.authmodels.Users;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,10 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Data
-@Builder
 public class UsersDto implements UserDetails {
     private long id;
     private String email;
