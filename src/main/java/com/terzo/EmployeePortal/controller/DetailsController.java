@@ -24,7 +24,7 @@ public class DetailsController {
         detailsService.deleteEmployeeById(id);
     }
     @PutMapping("/update")
-    public void deleteEmployee(@RequestBody Details details){
+    public void updateEmployee(@RequestBody Details details){
         detailsService.save(details);
     }
     @GetMapping("/{employeeId}")

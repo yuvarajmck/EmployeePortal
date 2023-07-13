@@ -52,10 +52,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
+        http.cors();
         http.authorizeHttpRequests(authorize->
         {
             try{
-                authorize.requestMatchers(HttpMethod.GET,"/login")
+                authorize.requestMatchers("/login")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
