@@ -22,5 +22,4 @@ public class Managers {
     private long id;
     private long employeeId;
     private String managerName;
-
 }

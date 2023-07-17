@@ -1,5 +1,6 @@
 package com.terzo.EmployeePortal.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 @NoArgsConstructor
@@ -22,6 +24,8 @@ public class Employee {
     private String name;
     private String email;
     private String photoUrl;
+    private LocalDate dob;
+    private String gender;
     private String mobilNo;
     private boolean active;
     private String employmentType;
@@ -32,4 +36,8 @@ public class Employee {
     private Department department;
     @OneToOne
     private Details details;
+    @OneToMany
+    @JsonManagedReference
+    private List<LeaveApl> leaves;
+    private long managerId;
 }

@@ -20,15 +20,14 @@ import java.time.LocalDate;
 public class Details {
     @Id
     private long id;
-    private String name;
     private String personalMail;
     private String bloodGroup;
-    private LocalDate dob;
-    private String gender;
     private String currentAddress;
-    private String currentCity;
+    private String currentAddressCity;
+    private String currentAddressPin;
     private String permanentAddress;
     private String permanentAddressCity;
+    private String permanentAddressPin;
     private String aadhaar;
     private String pan;
     @OneToOne(mappedBy = "details")

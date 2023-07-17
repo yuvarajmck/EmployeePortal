@@ -7,6 +7,8 @@ import com.terzo.EmployeePortal.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
@@ -29,5 +31,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department findById(long id) {
         return departmentRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Department> findAll() {
+        return departmentRepository.findAll();
     }
 }

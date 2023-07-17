@@ -2,9 +2,12 @@ package com.terzo.EmployeePortal.service.impl;
 
 import com.terzo.EmployeePortal.Dto.EmployeeDTO;
 import com.terzo.EmployeePortal.models.Employee;
+import com.terzo.EmployeePortal.models.LeaveApl;
 import com.terzo.EmployeePortal.repository.EmployeeRepository;
 import com.terzo.EmployeePortal.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +22,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> findAllEmployee() {
-        return employeeRepository.findAll();
+    public Page<Employee> findAllEmployee(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 
     @Override
@@ -37,6 +40,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findEmployeeById(long id) {
         return employeeRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Employee> getEmployees(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
+    }
+
+    @Override
+    public Employee findEmployeeByLeave(LeaveApl leaves) {
+        return employeeRepository.findEmployeeByLeaves(leaves);
     }
 
     private EmployeeDTO mapToEmployeeDTO(Employee employee) {
