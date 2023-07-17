@@ -1,5 +1,6 @@
 package com.terzo.EmployeePortal.service.impl;
 
+import com.terzo.EmployeePortal.Dto.LeaveLogsDto;
 import com.terzo.EmployeePortal.models.LeaveApl;
 import com.terzo.EmployeePortal.repository.LeaveLogsRepository;
 import com.terzo.EmployeePortal.service.LeaveLogsService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LeaveLogsServiceImpl implements LeaveLogsService {
@@ -18,8 +20,9 @@ public class LeaveLogsServiceImpl implements LeaveLogsService {
     }
 
     @Override
-    public LeaveApl updateLeave(LeaveApl leave) {
-        return leaveLogsRepository.save(leave);
+    public void updateLeave( LeaveApl leave) {
+
+         leaveLogsRepository.save(leave);
     }
 
     @Override
@@ -46,10 +49,22 @@ public class LeaveLogsServiceImpl implements LeaveLogsService {
     public List<LeaveApl> getUnapprovedLeavesByEmployeeId(Long Id) {
         return leaveLogsRepository.findByEmployeeIdAndLeaveStatus(Id, false);
     }
-
     @Override
-    public List<LeaveApl> getUnapprovedLeaves() {
-        return leaveLogsRepository.findLeaveByLeaveStatus(false);
+    public List<LeaveLogsDto> getUnapprovedLeaves() {
+        List<LeaveApl> leaves = leaveLogsRepository.findLeavesByLeaveStatus(false);
+        List<LeaveLogsDto> leaveDto = leaves.stream().map(leave -> mapToLeaveLogsDto(leave)).collect(Collectors.toList());
+        return leaveDto;
+    }
+
+    private LeaveLogsDto mapToLeaveLogsDto(LeaveApl leaves) {
+        LeaveLogsDto leaveDto = LeaveLogsDto.builder()
+                .status(leaves.isLeaveStatus())
+                .endDate(leaves.getStartDate())
+                .startDate(leaves.getEndDate())
+                .reason(leaves.getReason())
+                .employee(leaves.getEmployee())
+                .build();
+        return leaveDto;
     }
 
 }

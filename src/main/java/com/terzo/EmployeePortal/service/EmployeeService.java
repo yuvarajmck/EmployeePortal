@@ -22,5 +22,7 @@ public interface EmployeeService {
 
     List<Employee> findAll();
 
-    Employee findEmployeeByLeave(LeaveApl leaves);
+
+
+    List<Employee> findAllEmployeeByName(String query);
 }

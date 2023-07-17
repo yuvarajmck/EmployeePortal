@@ -17,14 +17,15 @@ import java.time.LocalDate;
 public class LeaveApl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String reason;
     private LocalDate startDate;
     private LocalDate endDate;
     @Column(nullable = false)
     private boolean leaveStatus;
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name="employee_id")
     @JsonBackReference
     private Employee employee;
+
 }

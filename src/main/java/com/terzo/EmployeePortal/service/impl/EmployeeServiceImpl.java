@@ -1,6 +1,7 @@
 package com.terzo.EmployeePortal.service.impl;
 
 import com.terzo.EmployeePortal.Dto.EmployeeDTO;
+import com.terzo.EmployeePortal.Dto.LeaveLogsDto;
 import com.terzo.EmployeePortal.models.Employee;
 import com.terzo.EmployeePortal.models.LeaveApl;
 import com.terzo.EmployeePortal.repository.EmployeeRepository;
@@ -52,9 +53,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findAll();
     }
 
+
+
     @Override
-    public Employee findEmployeeByLeave(LeaveApl leaves) {
-        return employeeRepository.findEmployeeByLeaves(leaves);
+    public List<Employee> findAllEmployeeByName(String query) {
+        return employeeRepository.findAllByName(query);
     }
 
     private EmployeeDTO mapToEmployeeDTO(Employee employee) {
@@ -71,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
                 .build();
     }
+
 
     private Employee mapTOEmployee(EmployeeDTO employeeDTO) {
         return Employee.builder()

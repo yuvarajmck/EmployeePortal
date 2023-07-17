@@ -1,5 +1,6 @@
 package com.terzo.EmployeePortal.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
@@ -38,6 +39,6 @@ public class Employee {
     private Details details;
     @OneToMany
     @JsonManagedReference
-    private List<LeaveApl> leaves;
+    private List<LeaveApl> leaveApl;
     private long managerId;
 }

@@ -1,5 +1,6 @@
 package com.terzo.EmployeePortal.controller;
 
+import com.terzo.EmployeePortal.Dto.LeaveLogsDto;
 import com.terzo.EmployeePortal.models.LeaveApl;
 import com.terzo.EmployeePortal.service.LeaveLogsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +47,16 @@ public class LeaveLogController {
         return ResponseEntity.ok(unapprovedLeaves);
     }
     @GetMapping("/unapproved")
-    public ResponseEntity<List<LeaveApl>> getUnapprovedLeaves(){
-        List<LeaveApl> unapprovedLeaves = leaveService.getUnapprovedLeaves();
+    public ResponseEntity<List<LeaveLogsDto>> getUnapprovedLeaves(){
+        List<LeaveLogsDto> unapprovedLeaves = leaveService.getUnapprovedLeaves();
         return ResponseEntity.ok(unapprovedLeaves);
     }
 
-    @PutMapping("/approve")
-    public void approveLeave(@RequestBody LeaveApl leaveApl){
+    @PutMapping("/approve/{id}")
+    public void approveLeave(@RequestBody LeaveApl leaveApl, @PathVariable long id){
+        leaveApl.setLeaveStatus(true);
+        leaveApl.setId(id);
         leaveService.updateLeave(leaveApl);
     }
+
 }

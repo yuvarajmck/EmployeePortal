@@ -50,6 +50,10 @@ public class EmployeeController {
         return employeeService.findEmployeeById(id);
     }
 
+    @GetMapping("/employee/search/{query}")
+    public List<Employee> searchEmployee(@PathVariable("query") String query){
+        return employeeService.findAllEmployeeByName(query);
+    }
     @GetMapping("/employee/page")
     public Page<Employee> getEmployeeList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
         Pageable paging = PageRequest.of(page, size);
@@ -58,11 +62,15 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee/leave")
-    public ResponseEntity<Employee> getEmployeeLeave(@RequestBody LeaveApl leaves){
-        Employee employee = employeeService.findEmployeeByLeave(leaves);
+    public ResponseEntity<Employee> getEmployeeLeave(@RequestParam long id){
+        Employee employee = employeeService.findEmployeeById(id);
         return ResponseEntity.ok(employee);
 
     }
+
+
+
+
 //
 //    @GetMapping("/employee/sort")
 //    public Page<Employee> getSortedList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
